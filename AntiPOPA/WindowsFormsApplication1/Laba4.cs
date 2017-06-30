@@ -10,9 +10,9 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Media;
 
-namespace WindowsFormsApplication1
+namespace AntiPOPA
 {
-    public partial class Form1 : Form
+    public partial class Laba4 : Form
     {
 
 
@@ -393,7 +393,7 @@ namespace WindowsFormsApplication1
         }
 
 
-        public Form1()
+        public Laba4()
         {
             InitializeComponent();
            // playSimpleSound();

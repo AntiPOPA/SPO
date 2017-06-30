@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApplication1
 {
-    partial class Form1
+    partial class Laba4
     {
         /// <summary>
         /// Required designer variable.
