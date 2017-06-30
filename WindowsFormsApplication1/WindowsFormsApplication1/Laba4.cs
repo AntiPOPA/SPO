@@ -71,7 +71,7 @@ namespace WindowsFormsApplication1
                 string buffer1= "";
                 string buffer2= "";
                 List<Token> ListOfTokens = new List<Token>();
-
+                
                 for (int i=0; i <= programmText.Length -1 ;i++) {
                     buffer2 = buffer1;
                     buffer1 += programmText[i];
@@ -396,7 +396,7 @@ namespace WindowsFormsApplication1
         public Form1()
         {
             InitializeComponent();
-            playSimpleSound();
+           // playSimpleSound();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -410,11 +410,11 @@ namespace WindowsFormsApplication1
 
            
         }
-        private void playSimpleSound()
+       /* private void playSimpleSound()
         {
             System.Media.SoundPlayer simpleSound = new SoundPlayer(@"d:\Music.wav");
             simpleSound.Play();
-        }
+        }*/
 
 
         private void Letuchka_Click(object sender, EventArgs e)
