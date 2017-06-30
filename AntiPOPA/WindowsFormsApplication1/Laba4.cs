@@ -18,12 +18,12 @@ namespace AntiPOPA
 
         public struct Token
         {
-            public string Name;
-            public string Value;
+            public string Imya;
+            public string ZnachImeni;
             public Token(string n, string v)
             {
-                Name = n;
-                Value = v;
+                Imya = n;
+                ZnachImeni = v;
             }
         }
         public struct TokenRegistrateEx
@@ -64,7 +64,7 @@ namespace AntiPOPA
             }
 
             public bool IsSpace(Token s) {
-                return Regex.IsMatch(s.Value, @"(^\s$)");
+                return Regex.IsMatch(s.ZnachImeni, @"(^\s$)");
             }
             
             public List<Token> getTokens (string programmText) {
@@ -175,7 +175,7 @@ namespace AntiPOPA
 
                 foreach (Lexem l in Lexems)
                 {
-                    if ((t1.Name == l.token1) && (t2.Name == l.token2))
+                    if ((t1.Imya == l.token1) && (t2.Imya == l.token2))
                     {
                         return true;
 
@@ -188,7 +188,7 @@ namespace AntiPOPA
             public bool Lexe(List<Token> Tokens)
             {
                 if (Tokens == null) { return true; }
-                if (Tokens[0].Name == "Error: unknown element") { return false; }
+                if (Tokens[0].Imya == "Error: unknown element") { return false; }
                 for (int i = 0; i <= Tokens.Count - 2; i++)
                 {
                     if (IsRightLexem(Tokens[i], Tokens[i + 1]) == false)
@@ -204,7 +204,7 @@ namespace AntiPOPA
                 int openBracketsT = 0, closeBracketsT = 0;
                 foreach (Token tk in Tokens)
                 {
-                    switch (tk.Name)
+                    switch (tk.Imya)
                     {
                         case "openBracketsT": { openBracketsT++; break; }
                         case "closeBracketsT": { closeBracketsT++; break; }
@@ -223,9 +223,9 @@ namespace AntiPOPA
         public class Polskalizator {                                       //making polish string from the list of token's
 
             public int hmpriority(Token t) {                               //calculate priority for tokens
-                if (t.Value == "/" || t.Value == "*") return 10;
-                if (t.Value == "+" || t.Value == "-") return 9;
-                if (t.Value == "="||t.Value== "print") return 8;
+                if (t.ZnachImeni == "/" || t.ZnachImeni == "*") return 10;
+                if (t.ZnachImeni == "+" || t.ZnachImeni == "-") return 9;
+                if (t.ZnachImeni == "="||t.ZnachImeni== "print") return 8;
                 else return 0;
             }
 
@@ -234,24 +234,24 @@ namespace AntiPOPA
                 List<Token> alreadyPolsk = new List<Token>();
                 Stack<Token> stack = new Stack<Token>();
                 foreach (Token token in nepolsk) {
-                    if (token.Name == "printT") toprint = true;
-                    else if (token.Name == "endT") while (stack.Count != 0) alreadyPolsk.Add(stack.Pop());
-                    else if (token.Name == "digitT" || token.Name == "varT") alreadyPolsk.Add(token);
-                    else if (token.Name == "openBracketsT") stack.Push(token);
-                    else if (token.Name == "closeBracketsT")
+                    if (token.Imya == "printT") toprint = true;
+                    else if (token.Imya == "endT") while (stack.Count != 0) alreadyPolsk.Add(stack.Pop());
+                    else if (token.Imya == "digitT" || token.Imya == "varT") alreadyPolsk.Add(token);
+                    else if (token.Imya == "openBracketsT") stack.Push(token);
+                    else if (token.Imya == "closeBracketsT")
                     {
-                        while (stack.Peek().Name != "openBracketsT" || stack.Count == 0) alreadyPolsk.Add(stack.Pop());
+                        while (stack.Peek().Imya != "openBracketsT" || stack.Count == 0) alreadyPolsk.Add(stack.Pop());
                         stack.Pop();
                     }
-                    else if (token.Name == "arOpT" || token.Name == "equalOpT")
+                    else if (token.Imya == "arOpT" || token.Imya == "equalOpT")
                     {
                         if (stack.Count == 0) { stack.Push(token); }
-                        else if (stack.Peek().Name == "openBracketsT") stack.Push(token);
+                        else if (stack.Peek().Imya == "openBracketsT") stack.Push(token);
                         else if (hmpriority(token) <= hmpriority(stack.Peek()))
                         {
                             while (stack.Count != 0 && hmpriority(token) <= hmpriority(stack.Peek()))
                             {
-                                if (stack.Peek().Name == "openBracketsT") break;
+                                if (stack.Peek().Imya == "openBracketsT") break;
                                 alreadyPolsk.Add(stack.Pop());
                             }
                             stack.Push(token);
@@ -317,7 +317,7 @@ namespace AntiPOPA
                 string output = "";
                 foreach (Token token in polskStroka)
                 {
-                    switch (token.Name)
+                    switch (token.Imya)
                     {
 
 
@@ -335,40 +335,40 @@ namespace AntiPOPA
                             break;
                         case "varT":
                             {
-                                if (!IsExist(token.Value))
+                                if (!IsExist(token.ZnachImeni))
                                 {
-                                    stack.Push(new VarHolder(token.Value, 0f));
-                                    vars.Add(new VarHolder(token.Value, 0f));
+                                    stack.Push(new VarHolder(token.ZnachImeni, 0f));
+                                    vars.Add(new VarHolder(token.ZnachImeni, 0f));
                                 }
                                 else
                                 {
-                                    stack.Push(new VarHolder(token.Value, GetVarHolderByName(token.Value)));
+                                    stack.Push(new VarHolder(token.ZnachImeni, GetVarHolderByName(token.ZnachImeni)));
                                     
 
                                 }
                             }
                             break;
                         case "digitT":
-                            stack.Push(new VarHolder("", Convert.ToDouble(token.Value)));
+                            stack.Push(new VarHolder("", Convert.ToDouble(token.ZnachImeni)));
                             break;
 
                         case "arOpT":
                             {
                                 double op1 = stack.Pop().value;
                                 double op2 = stack.Pop().value;
-                                if (token.Value == "+")
+                                if (token.ZnachImeni == "+")
                                 {
                                     stack.Push(new VarHolder("", (op1 + op2)));
                                 }
-                                else if (token.Value == "-")
+                                else if (token.ZnachImeni == "-")
                                 {
                                     stack.Push(new VarHolder("", (op2 - op1)));
                                 }
-                                else if (token.Value == "*")
+                                else if (token.ZnachImeni == "*")
                                 {
                                     stack.Push(new VarHolder("", (op1 * op2)));
                                 }
-                                else if (token.Value == "/")
+                                else if (token.ZnachImeni == "/")
                                 {
                                     stack.Push(new VarHolder("", (op1 / op2)));
                                 }
@@ -428,7 +428,7 @@ namespace AntiPOPA
             List <Token> tks = tokenezator.getTokens(ProgrammText.Text);
 
             foreach (Token t in tks){
-                Tokens.Text += t.Name + ", ";
+                Tokens.Text += t.Imya + ", ";
             }
 
             if (lexer.BracketsRight(tks)){
@@ -441,7 +441,7 @@ namespace AntiPOPA
 
                     foreach (Token t in polis)
                     {
-                        PolskaVudkaDobrovudka.Text += t.Value + ", ";
+                        PolskaVudkaDobrovudka.Text += t.ZnachImeni + ", ";
                     }
 
                     Machine machine = new Machine();
