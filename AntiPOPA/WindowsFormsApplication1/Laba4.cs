@@ -20,45 +20,44 @@ namespace AntiPOPA
         {
             public string Imya;
             public string ZnachImeni;
-            public Token(string n, string v)
+            public Token(string u, string z)
             {
-                Imya = n;
-                ZnachImeni = v;
+                Imya = u;
+                ZnachImeni = z;
             }
         }
-        public struct TokenRegistrateEx
+        public struct TokenEnrollment
             {
-                public string Name;
-                public string Regex;
-                public TokenRegistrateEx(string N, string R)
+                public string Imya;
+                public string TEnroll;
+                public TokenEnrollment(string U, string E)
                 {
-                    Name = N;
-                    Regex = R;
+                    Imya = U;
+                    TEnroll = E;
                 }
 
             }
 
         public class Tokenizator {
-            List<TokenRegistrateEx> RegEx = new List<TokenRegistrateEx>();
+            List<TokenEnrollment> TENROLL = new List<TokenEnrollment>();
             public Tokenizator() {
-                RegEx.Add(new TokenRegistrateEx("printT",@"(^print$)"));
-                RegEx.Add(new TokenRegistrateEx("openBracketsT", @"(^\($)"));
-                RegEx.Add(new TokenRegistrateEx("closeBracketsT", @"(^\)$)"));
-                RegEx.Add(new TokenRegistrateEx("varT", @"(^([A-Za-z][A-Za-z0-9]*)$)"));
-                RegEx.Add(new TokenRegistrateEx("arOpT", @"(^([+|\-|*|\/])$)"));
-                RegEx.Add(new TokenRegistrateEx("digitT", @"(^((-?\d+)(\,\d*)?)$)"));
-               // RegEx.Add(new TokenRegistrateEx("digitT", @"{[^}]*""id"":(\d+)[^}]*avail:(-\d+)[^}]*cost:\[(\d+)?\][^}]*"));
-                RegEx.Add(new TokenRegistrateEx("equalOpT", @"^(=)$"));
-                RegEx.Add(new TokenRegistrateEx("endT", @"(^(;)$)"));
-                RegEx.Add(new TokenRegistrateEx("spaceT", @"(^\s$)"));
-                RegEx.Add(new TokenRegistrateEx("Error: unknown element", "[$.`'{}<>]"));
+                TENROLL.Add(new TokenEnrollment("printT",@"(^print$)"));
+                TENROLL.Add(new TokenEnrollment("openBracketsT", @"(^\($)"));
+                TENROLL.Add(new TokenEnrollment("closeBracketsT", @"(^\)$)"));
+                TENROLL.Add(new TokenEnrollment("varT", @"(^([A-Za-z][A-Za-z0-9]*)$)"));
+                TENROLL.Add(new TokenEnrollment("arOpT", @"(^([+|\-|*|\/])$)"));
+                TENROLL.Add(new TokenEnrollment("digitT", @"(^((-?\d+)(\,\d*)?)$)"));
+                TENROLL.Add(new TokenEnrollment("equalOpT", @"^(=)$"));
+                TENROLL.Add(new TokenEnrollment("endT", @"(^(;)$)"));
+                TENROLL.Add(new TokenEnrollment("spaceT", @"(^\s$)"));
+                TENROLL.Add(new TokenEnrollment("Error: unknown element", "[$.`'{}<>]"));
 
             }
             
 
             public string  TokenIsMatch(string progtext) {
-                foreach (TokenRegistrateEx r in RegEx) {
-                    if (Regex.IsMatch(progtext, r.Regex)) { return r.Name; break; }
+                foreach (TokenEnrollment r in TENROLL) {
+                    if (Regex.IsMatch(progtext, r.TEnroll)) { return r.Imya; break; }
                 }
                 return null;
             }
