@@ -41,23 +41,23 @@ namespace AntiPOPA
         public class Tokenizator {
             List<TokenEnrollment> TENROLL = new List<TokenEnrollment>();
             public Tokenizator() {
-                TENROLL.Add(new TokenEnrollment("printT",@"(^print$)"));
-                TENROLL.Add(new TokenEnrollment("openBracketsT", @"(^\($)"));
-                TENROLL.Add(new TokenEnrollment("closeBracketsT", @"(^\)$)"));
-                TENROLL.Add(new TokenEnrollment("varT", @"(^([A-Za-z][A-Za-z0-9]*)$)"));
-                TENROLL.Add(new TokenEnrollment("arOpT", @"(^([+|\-|*|\/])$)"));
-                TENROLL.Add(new TokenEnrollment("digitT", @"(^((-?\d+)(\,\d*)?)$)"));
-                TENROLL.Add(new TokenEnrollment("equalOpT", @"^(=)$"));
-                TENROLL.Add(new TokenEnrollment("endT", @"(^(;)$)"));
-                TENROLL.Add(new TokenEnrollment("spaceT", @"(^\s$)"));
-                TENROLL.Add(new TokenEnrollment("Error: unknown element", "[$.`'{}<>]"));
+                TENROLL.Add(new TokenEnrollment("pechat",@"(^print$)"));
+                TENROLL.Add(new TokenEnrollment("leftscobka", @"(^\($)"));
+                TENROLL.Add(new TokenEnrollment("rightscobka", @"(^\)$)"));
+                TENROLL.Add(new TokenEnrollment("peremen", @"(^([A-Za-z][A-Za-z0-9]*)$)"));
+                TENROLL.Add(new TokenEnrollment("znakiAR", @"(^([+|\-|*|\/])$)"));
+                TENROLL.Add(new TokenEnrollment("chisl", @"(^((-?\d+)(\,\d*)?)$)"));
+                TENROLL.Add(new TokenEnrollment("ravno", @"^(=)$"));
+                TENROLL.Add(new TokenEnrollment("konecstr", @"(^(;)$)"));
+                TENROLL.Add(new TokenEnrollment("inane", @"(^\s$)"));
+                TENROLL.Add(new TokenEnrollment("This isn't good", "[$.`'{}<>]"));
 
             }
             
 
             public string  TokenIsMatch(string progtext) {
-                foreach (TokenEnrollment r in TENROLL) {
-                    if (Regex.IsMatch(progtext, r.TEnroll)) { return r.Imya; break; }
+                foreach (TokenEnrollment t in TENROLL) {
+                    if (Regex.IsMatch(progtext, t.TEnroll)) { return t.Imya; break; }
                 }
                 return null;
             }
@@ -111,62 +111,53 @@ namespace AntiPOPA
             {
 
 
-                /*RegEx.Add(new TokenRegistrateEx("printT", @"(^print$)"));
-                RegEx.Add(new TokenRegistrateEx("openBracketsT", @"(^\($)"));
-                RegEx.Add(new TokenRegistrateEx("closeBracketsT", @"(^\)$)"));
-                RegEx.Add(new TokenRegistrateEx("varT", @"(^([A-Za-z][A-Za-z0-9]*)$)"));
-                RegEx.Add(new TokenRegistrateEx("arOpT", @"(^([+|\-|*|\/])$)"));
-                RegEx.Add(new TokenRegistrateEx("digitT", @"(^((-?\d+)(\,\d*)?)$)"));
-                RegEx.Add(new TokenRegistrateEx("equalOpT", @"^(=)$"));
-                RegEx.Add(new TokenRegistrateEx("endT", @"(^(;)$)"));
-                RegEx.Add(new TokenRegistrateEx("spaceT", @"(^\s$)"));*/
+                
 
+                Lexems.Add(new Lexem("pechat", "leftscobka"));
 
-                Lexems.Add(new Lexem("printT", "openBracketsT"));
+                Lexems.Add(new Lexem("leftscobka", "peremen"));
+                Lexems.Add(new Lexem("leftscobka", "chisl"));
+                Lexems.Add(new Lexem("leftscobka", "inane"));
 
-                Lexems.Add(new Lexem("openBracketsT", "varT"));
-                Lexems.Add(new Lexem("openBracketsT", "digitT"));
-                Lexems.Add(new Lexem("openBracketsT", "spaceT"));
+                Lexems.Add(new Lexem("rightscobka", "znakiAR"));
+                Lexems.Add(new Lexem("rightscobka", "ravno"));
+                Lexems.Add(new Lexem("rightscobka", "konecstr"));
+                Lexems.Add(new Lexem("rightscobka", "inane"));
 
-                Lexems.Add(new Lexem("closeBracketsT", "arOpt"));
-                Lexems.Add(new Lexem("closeBracketsT", "equalOpT"));
-                Lexems.Add(new Lexem("closeBracketsT", "endT"));
-                Lexems.Add(new Lexem("closeBracketsT", "spaceT"));
+                Lexems.Add(new Lexem("peremen", "rightscobka"));
+                Lexems.Add(new Lexem("peremen", "znakiAR"));
+                Lexems.Add(new Lexem("peremen", "ravno"));
+                Lexems.Add(new Lexem("peremen", "konecstr"));
+                Lexems.Add(new Lexem("peremen", "inane"));
 
-                Lexems.Add(new Lexem("varT", "closeBracketsT"));
-                Lexems.Add(new Lexem("varT", "arOpT"));
-                Lexems.Add(new Lexem("varT", "equalOpT"));
-                Lexems.Add(new Lexem("varT", "endT"));
-                Lexems.Add(new Lexem("varT", "spaceT"));
+                Lexems.Add(new Lexem("znakiAR", "leftscobka"));
+                Lexems.Add(new Lexem("znakiAR", "peremen"));
+                Lexems.Add(new Lexem("znakiAR", "chisl"));
+                Lexems.Add(new Lexem("znakiAR", "inane"));
 
-                Lexems.Add(new Lexem("arOpT", "openBracketsT"));
-                Lexems.Add(new Lexem("arOpT", "varT"));
-                Lexems.Add(new Lexem("arOpT", "digitT"));
-                Lexems.Add(new Lexem("arOpT", "spaceT"));
+                Lexems.Add(new Lexem("chisl", "rightscobka"));
+                Lexems.Add(new Lexem("chisl", "znakiAR"));
+                Lexems.Add(new Lexem("chisl", "konecstr"));
+                Lexems.Add(new Lexem("chisl", "inane"));
 
-                Lexems.Add(new Lexem("digitT", "closeBracketsT"));
-                Lexems.Add(new Lexem("digitT", "arOpT"));
-                Lexems.Add(new Lexem("digitT", "endT"));
-                Lexems.Add(new Lexem("digit", "SpaceT"));
+                Lexems.Add(new Lexem("ravno", "leftscobka"));
+                Lexems.Add(new Lexem("ravno", "peremen"));
+                Lexems.Add(new Lexem("ravno", "chisl"));
+                Lexems.Add(new Lexem("ravno", "inane"));
 
-                Lexems.Add(new Lexem("equalOpT", "openBracketsT"));
-                Lexems.Add(new Lexem("equalOpT", "varT"));
-                Lexems.Add(new Lexem("equalOpT", "digitT"));
-                Lexems.Add(new Lexem("equalOpT", "SpaceT"));
+                Lexems.Add(new Lexem("endT", "pechat"));
+                Lexems.Add(new Lexem("end", "leftscobka"));
+                Lexems.Add(new Lexem("end", "peremen"));
+                Lexems.Add(new Lexem("end", "inane"));
 
-                Lexems.Add(new Lexem("endT", "printT"));
-                Lexems.Add(new Lexem("end", "openBracketsT"));
-                Lexems.Add(new Lexem("end", "varT"));
-                Lexems.Add(new Lexem("end", "spaceT"));
-
-                Lexems.Add(new Lexem("spaceT", "printT"));
-                Lexems.Add(new Lexem("spaceT", "openBracketsT"));
-                Lexems.Add(new Lexem("spaceT", "closeBracketsT"));
-                Lexems.Add(new Lexem("spaceT", "varT"));
-                Lexems.Add(new Lexem("spaceT", "arOpT"));
-                Lexems.Add(new Lexem("spaceT", "digitT"));
-                Lexems.Add(new Lexem("spaceT", "equalOpT"));
-                Lexems.Add(new Lexem("spaceT", "endT"));
+                Lexems.Add(new Lexem("inane", "pechat"));
+                Lexems.Add(new Lexem("inane", "leftscobka"));
+                Lexems.Add(new Lexem("inane", "rightscobka"));
+                Lexems.Add(new Lexem("inane", "peremen"));
+                Lexems.Add(new Lexem("inane", "znakiAR"));
+                Lexems.Add(new Lexem("inane", "chisl"));
+                Lexems.Add(new Lexem("inane", "ravno"));
+                Lexems.Add(new Lexem("inane", "konecstr"));
             }
 
             private bool IsRightLexem(Token t1, Token t2)
@@ -187,7 +178,7 @@ namespace AntiPOPA
             public bool Lexe(List<Token> Tokens)
             {
                 if (Tokens == null) { return true; }
-                if (Tokens[0].Imya == "Error: unknown element") { return false; }
+                if (Tokens[0].Imya == "This isn't good") { return false; }
                 for (int i = 0; i <= Tokens.Count - 2; i++)
                 {
                     if (IsRightLexem(Tokens[i], Tokens[i + 1]) == false)
@@ -198,20 +189,20 @@ namespace AntiPOPA
 
             }
 
-            public bool BracketsRight(List<Token> Tokens)
+            public bool ProvScobka(List<Token> Tokens)
             {
-                int openBracketsT = 0, closeBracketsT = 0;
+                int leftscobka = 0, rightscobka = 0;
                 foreach (Token tk in Tokens)
                 {
                     switch (tk.Imya)
                     {
-                        case "openBracketsT": { openBracketsT++; break; }
-                        case "closeBracketsT": { closeBracketsT++; break; }
+                        case "leftscobka": { leftscobka++; break; }
+                        case "rightscobka": { rightscobka++; break; }
                         default: break;
                     }
                 }
 
-                if (openBracketsT == closeBracketsT)  return true;
+                if (leftscobka == rightscobka)  return true;
                 else return false;
 
             }
@@ -430,7 +421,7 @@ namespace AntiPOPA
                 Tokens.Text += t.Imya + ", ";
             }
 
-            if (lexer.BracketsRight(tks)){
+            if (lexer.ProvScobka(tks)){
 
                 if (lexer.Lexe(tks))
                 {
