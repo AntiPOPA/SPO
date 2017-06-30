@@ -38,9 +38,9 @@ namespace AntiPOPA
 
             }
 
-        public class Tokenizator {
+        public class TokenSlowar {
             List<TokenEnrollment> TENROLL = new List<TokenEnrollment>();
-            public Tokenizator() {
+            public TokenSlowar() {
                 TENROLL.Add(new TokenEnrollment("pechat",@"(^print$)"));
                 TENROLL.Add(new TokenEnrollment("leftscobka", @"(^\($)"));
                 TENROLL.Add(new TokenEnrollment("rightscobka", @"(^\)$)"));
@@ -55,57 +55,57 @@ namespace AntiPOPA
             }
             
 
-            public string  TokenIsMatch(string progtext) {
+            public string  Sravnenie(string txt) {
                 foreach (TokenEnrollment t in TENROLL) {
-                    if (Regex.IsMatch(progtext, t.TEnroll)) { return t.Imya; break; }
+                    if (Regex.IsMatch(txt, t.TEnroll)) { return t.Imya; break; }
                 }
                 return null;
             }
 
-            public bool IsSpace(Token s) {
-                return Regex.IsMatch(s.ZnachImeni, @"(^\s$)");
+            public bool Inane(Token p) {
+                return Regex.IsMatch(p.ZnachImeni, @"(^\s$)");
             }
             
-            public List<Token> getTokens (string programmText) {
-                string buffer1= "";
-                string buffer2= "";
-                List<Token> ListOfTokens = new List<Token>();
+            public List<Token> getTokens (string uText) {
+                string carrier0= "";
+                string carrier= "";
+                List<Token> ListOT = new List<Token>();
                 
-                for (int i=0; i <= programmText.Length -1 ;i++) {
-                    buffer2 = buffer1;
-                    buffer1 += programmText[i];
-                    if (TokenIsMatch(buffer1) == null) {
+                for (int i=0; i <= uText.Length -1 ;i++) {
+                    carrier = carrier0;
+                    carrier0 += uText[i];
+                    if (Sravnenie(carrier0) == null) {
                         i--;
-                        ListOfTokens.Add(new Token(TokenIsMatch(buffer2), buffer2));
-                        buffer1 = "";
+                        ListOT.Add(new Token(Sravnenie(carrier), carrier));
+                        carrier0 = "";
                     }
                     
                 }
 
-                if (TokenIsMatch(buffer1) != null)
+                if (Sravnenie(carrier0) != null)
                 {
-                    ListOfTokens.Add(new Token(TokenIsMatch(buffer1), buffer1));
+                    ListOT.Add(new Token(Sravnenie(carrier0), carrier0));
                 }
-                ListOfTokens.RemoveAll(IsSpace);
-                return ListOfTokens;
+                ListOT.RemoveAll(Inane);
+                return ListOT;
             }
             
             
         }
 
         public struct Lexem {
+            public string token0;
             public string token1;
-            public string token2;
             public Lexem(string token1,string token2) {
-                this.token1 = token1;
-                this.token2 = token2;
+                this.token0 = token1;
+                this.token1 = token2;
             }
         }
 
         public class Lexer
         {
 
-            List<Lexem> Lexems = new List<Lexem>();
+            List<Lexem> Lexeme = new List<Lexem>();
 
             public Lexer()
             {
@@ -113,59 +113,59 @@ namespace AntiPOPA
 
                 
 
-                Lexems.Add(new Lexem("pechat", "leftscobka"));
+                Lexeme.Add(new Lexem("pechat", "leftscobka"));
 
-                Lexems.Add(new Lexem("leftscobka", "peremen"));
-                Lexems.Add(new Lexem("leftscobka", "chisl"));
-                Lexems.Add(new Lexem("leftscobka", "inane"));
+                Lexeme.Add(new Lexem("leftscobka", "peremen"));
+                Lexeme.Add(new Lexem("leftscobka", "chisl"));
+                Lexeme.Add(new Lexem("leftscobka", "inane"));
 
-                Lexems.Add(new Lexem("rightscobka", "znakiAR"));
-                Lexems.Add(new Lexem("rightscobka", "ravno"));
-                Lexems.Add(new Lexem("rightscobka", "konecstr"));
-                Lexems.Add(new Lexem("rightscobka", "inane"));
+                Lexeme.Add(new Lexem("rightscobka", "znakiAR"));
+                Lexeme.Add(new Lexem("rightscobka", "ravno"));
+                Lexeme.Add(new Lexem("rightscobka", "konecstr"));
+                Lexeme.Add(new Lexem("rightscobka", "inane"));
 
-                Lexems.Add(new Lexem("peremen", "rightscobka"));
-                Lexems.Add(new Lexem("peremen", "znakiAR"));
-                Lexems.Add(new Lexem("peremen", "ravno"));
-                Lexems.Add(new Lexem("peremen", "konecstr"));
-                Lexems.Add(new Lexem("peremen", "inane"));
+                Lexeme.Add(new Lexem("peremen", "rightscobka"));
+                Lexeme.Add(new Lexem("peremen", "znakiAR"));
+                Lexeme.Add(new Lexem("peremen", "ravno"));
+                Lexeme.Add(new Lexem("peremen", "konecstr"));
+                Lexeme.Add(new Lexem("peremen", "inane"));
 
-                Lexems.Add(new Lexem("znakiAR", "leftscobka"));
-                Lexems.Add(new Lexem("znakiAR", "peremen"));
-                Lexems.Add(new Lexem("znakiAR", "chisl"));
-                Lexems.Add(new Lexem("znakiAR", "inane"));
+                Lexeme.Add(new Lexem("znakiAR", "leftscobka"));
+                Lexeme.Add(new Lexem("znakiAR", "peremen"));
+                Lexeme.Add(new Lexem("znakiAR", "chisl"));
+                Lexeme.Add(new Lexem("znakiAR", "inane"));
 
-                Lexems.Add(new Lexem("chisl", "rightscobka"));
-                Lexems.Add(new Lexem("chisl", "znakiAR"));
-                Lexems.Add(new Lexem("chisl", "konecstr"));
-                Lexems.Add(new Lexem("chisl", "inane"));
+                Lexeme.Add(new Lexem("chisl", "rightscobka"));
+                Lexeme.Add(new Lexem("chisl", "znakiAR"));
+                Lexeme.Add(new Lexem("chisl", "konecstr"));
+                Lexeme.Add(new Lexem("chisl", "inane"));
 
-                Lexems.Add(new Lexem("ravno", "leftscobka"));
-                Lexems.Add(new Lexem("ravno", "peremen"));
-                Lexems.Add(new Lexem("ravno", "chisl"));
-                Lexems.Add(new Lexem("ravno", "inane"));
+                Lexeme.Add(new Lexem("ravno", "leftscobka"));
+                Lexeme.Add(new Lexem("ravno", "peremen"));
+                Lexeme.Add(new Lexem("ravno", "chisl"));
+                Lexeme.Add(new Lexem("ravno", "inane"));
 
-                Lexems.Add(new Lexem("endT", "pechat"));
-                Lexems.Add(new Lexem("end", "leftscobka"));
-                Lexems.Add(new Lexem("end", "peremen"));
-                Lexems.Add(new Lexem("end", "inane"));
+                Lexeme.Add(new Lexem("konecstr", "pechat"));
+                Lexeme.Add(new Lexem("konecstr", "leftscobka"));
+                Lexeme.Add(new Lexem("konecstr", "peremen"));
+                Lexeme.Add(new Lexem("konecstr", "inane"));
 
-                Lexems.Add(new Lexem("inane", "pechat"));
-                Lexems.Add(new Lexem("inane", "leftscobka"));
-                Lexems.Add(new Lexem("inane", "rightscobka"));
-                Lexems.Add(new Lexem("inane", "peremen"));
-                Lexems.Add(new Lexem("inane", "znakiAR"));
-                Lexems.Add(new Lexem("inane", "chisl"));
-                Lexems.Add(new Lexem("inane", "ravno"));
-                Lexems.Add(new Lexem("inane", "konecstr"));
+                Lexeme.Add(new Lexem("inane", "pechat"));
+                Lexeme.Add(new Lexem("inane", "leftscobka"));
+                Lexeme.Add(new Lexem("inane", "rightscobka"));
+                Lexeme.Add(new Lexem("inane", "peremen"));
+                Lexeme.Add(new Lexem("inane", "znakiAR"));
+                Lexeme.Add(new Lexem("inane", "chisl"));
+                Lexeme.Add(new Lexem("inane", "ravno"));
+                Lexeme.Add(new Lexem("inane", "konecstr"));
             }
 
-            private bool IsRightLexem(Token t1, Token t2)
+            private bool ProvLexem(Token t0, Token t1)
             {
 
-                foreach (Lexem l in Lexems)
+                foreach (Lexem L in Lexeme)
                 {
-                    if ((t1.Imya == l.token1) && (t2.Imya == l.token2))
+                    if ((t0.Imya == L.token0) && (t1.Imya == L.token1))
                     {
                         return true;
 
@@ -181,7 +181,7 @@ namespace AntiPOPA
                 if (Tokens[0].Imya == "This isn't good") { return false; }
                 for (int i = 0; i <= Tokens.Count - 2; i++)
                 {
-                    if (IsRightLexem(Tokens[i], Tokens[i + 1]) == false)
+                    if (ProvLexem(Tokens[i], Tokens[i + 1]) == false)
                         return false;
 
                 }
@@ -210,47 +210,47 @@ namespace AntiPOPA
 
         }
 
-        public class Polskalizator {                                       //making polish string from the list of token's
+        public class PolskiyStrEditor {                                       //making polish string from the list of token's
 
-            public int hmpriority(Token t) {                               //calculate priority for tokens
+            public int precedency(Token t) {                               //calculate priority for tokens
                 if (t.ZnachImeni == "/" || t.ZnachImeni == "*") return 10;
                 if (t.ZnachImeni == "+" || t.ZnachImeni == "-") return 9;
                 if (t.ZnachImeni == "="||t.ZnachImeni== "print") return 8;
                 else return 0;
             }
 
-            public List<Token> getpolsk (List<Token> nepolsk) {            //return polish string from non-polish string
+            public List<Token> getpolsk (List<Token> notpolsk) {            //return polish string from non-polish string
                 bool toprint = false;
                 List<Token> alreadyPolsk = new List<Token>();
                 Stack<Token> stack = new Stack<Token>();
-                foreach (Token token in nepolsk) {
-                    if (token.Imya == "printT") toprint = true;
-                    else if (token.Imya == "endT") while (stack.Count != 0) alreadyPolsk.Add(stack.Pop());
-                    else if (token.Imya == "digitT" || token.Imya == "varT") alreadyPolsk.Add(token);
-                    else if (token.Imya == "openBracketsT") stack.Push(token);
-                    else if (token.Imya == "closeBracketsT")
+                foreach (Token token in notpolsk) {
+                    if (token.Imya == "pechat") toprint = true;
+                    else if (token.Imya == "konecstr") while (stack.Count != 0) alreadyPolsk.Add(stack.Pop());
+                    else if (token.Imya == "chisl" || token.Imya == "peremen") alreadyPolsk.Add(token);
+                    else if (token.Imya == "leftscobka") stack.Push(token);
+                    else if (token.Imya == "rightscobka")
                     {
-                        while (stack.Peek().Imya != "openBracketsT" || stack.Count == 0) alreadyPolsk.Add(stack.Pop());
+                        while (stack.Peek().Imya != "leftscobka" || stack.Count == 0) alreadyPolsk.Add(stack.Pop());
                         stack.Pop();
                     }
-                    else if (token.Imya == "arOpT" || token.Imya == "equalOpT")
+                    else if (token.Imya == "znakiAR" || token.Imya == "ravno")
                     {
                         if (stack.Count == 0) { stack.Push(token); }
-                        else if (stack.Peek().Imya == "openBracketsT") stack.Push(token);
-                        else if (hmpriority(token) <= hmpriority(stack.Peek()))
+                        else if (stack.Peek().Imya == "leftscobka") stack.Push(token);
+                        else if (precedency(token) <= precedency(stack.Peek()))
                         {
-                            while (stack.Count != 0 && hmpriority(token) <= hmpriority(stack.Peek()))
+                            while (stack.Count != 0 && precedency(token) <= precedency(stack.Peek()))
                             {
-                                if (stack.Peek().Imya == "openBracketsT") break;
+                                if (stack.Peek().Imya == "leftscobka") break;
                                 alreadyPolsk.Add(stack.Pop());
                             }
                             stack.Push(token);
                         }
-                        else if (hmpriority(token) > hmpriority(stack.Peek())) stack.Push(token);
+                        else if (precedency(token) > precedency(stack.Peek())) stack.Push(token);
                     }
 
                 }
-                if (toprint) alreadyPolsk.Add(new Token("printT", "print"));
+                if (toprint) alreadyPolsk.Add(new Token("pechat", "print"));
 
                 while (stack.Count != 0) {
                     alreadyPolsk.Add(stack.Pop());
@@ -261,12 +261,12 @@ namespace AntiPOPA
         }
 
         public struct VarHolder {                          //struct to intrepret tokens to VM
-            public double value;
-            public string name;
+            public double znachenieimen;
+            public string imya;
 
-           public VarHolder(string name, double value) {
-                this.name = name;
-                this.value = value;
+           public VarHolder(string imya, double znachenieimen) {
+                this.imya = imya;
+                this.znachenieimen = znachenieimen;
             }
         }
 
@@ -278,7 +278,7 @@ namespace AntiPOPA
             {
                 foreach (VarHolder v in vars)
                 {
-                    if (v.name == var) return true;
+                    if (v.imya == var) return true;
 
                 }
                 return false;
@@ -288,7 +288,7 @@ namespace AntiPOPA
             {
                 foreach (VarHolder var in vars)
                 {
-                    if (var.name == name) return var.value;
+                    if (var.imya == name) return var.znachenieimen;
                 }
                 return 0f;
             }
@@ -297,7 +297,7 @@ namespace AntiPOPA
             {
                 for (int i = 0; i < vars.Count; i++)
                 {
-                    if (vars[i].name == name) return i;
+                    if (vars[i].imya == name) return i;
                 }
                 return -1;
             }
@@ -311,19 +311,11 @@ namespace AntiPOPA
                     {
 
 
-                        /*RegEx.Add(new TokenRegistrateEx("printT", @"(^print$)"));
-                    RegEx.Add(new TokenRegistrateEx("openBracketsT", @"(^\($)"));
-                    RegEx.Add(new TokenRegistrateEx("closeBracketsT", @"(^\)$)"));
-                    RegEx.Add(new TokenRegistrateEx("varT", @"(^([A-Za-z][A-Za-z0-9]*)$)"));
-                    RegEx.Add(new TokenRegistrateEx("arOpT", @"(^([+|\-|*|\/])$)"));
-                    RegEx.Add(new TokenRegistrateEx("digitT", @"(^((-?\d+)(\,\d*)?)$)"));
-                    RegEx.Add(new TokenRegistrateEx("equalOpT", @"^(=)$"));
-                    RegEx.Add(new TokenRegistrateEx("endT", @"(^(;)$)"));
-                    RegEx.Add(new TokenRegistrateEx("spaceT", @"(^\s$)"));*/
-                        case "printT":
-                            output += stack.Pop().value;
+                        
+                        case "pechat":
+                            output += stack.Pop().znachenieimen;
                             break;
-                        case "varT":
+                        case "peremen":
                             {
                                 if (!IsExist(token.ZnachImeni))
                                 {
@@ -338,14 +330,14 @@ namespace AntiPOPA
                                 }
                             }
                             break;
-                        case "digitT":
+                        case "chisl":
                             stack.Push(new VarHolder("", Convert.ToDouble(token.ZnachImeni)));
                             break;
 
-                        case "arOpT":
+                        case "znakiAR":
                             {
-                                double op1 = stack.Pop().value;
-                                double op2 = stack.Pop().value;
+                                double op1 = stack.Pop().znachenieimen;
+                                double op2 = stack.Pop().znachenieimen;
                                 if (token.ZnachImeni == "+")
                                 {
                                     stack.Push(new VarHolder("", (op1 + op2)));
@@ -364,16 +356,16 @@ namespace AntiPOPA
                                 }
                             }
                             break;
-                        case "equalOpT":
+                        case "ravno":
                             {
-                                double opb = stack.Pop().value;
-                                string opa = stack.Pop().name;
+                                double opb = stack.Pop().znachenieimen;
+                                string opa = stack.Pop().imya;
                                 int a = (GetVarHolderByNameIndex(opa));
                                 vars[a] = new VarHolder("", opb);
                             }
                             break;
 
-                        case "endT": { stack.Clear(); break; }
+                        case "konecstr": { stack.Clear(); break; }
                         default: { break; }
 
                     }
@@ -391,26 +383,14 @@ namespace AntiPOPA
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            /*Tokenizator tokenizator = new Tokenizator();
-            List<Token> tks = tokenizator.getTokens(ProgrammText.Text);
-            foreach (Token t in tks) {
-                Tokens.Text += t.Value + ",";
-
-            }*/
-
-           
-        }
-       /* private void playSimpleSound()
-        {
-            System.Media.SoundPlayer simpleSound = new SoundPlayer(@"d:\Music.wav");
-            simpleSound.Play();
-        }*/
+            
+        }      
 
 
         private void Letuchka_Click(object sender, EventArgs e)
         {
 
-            Tokenizator tokenezator = new Tokenizator();
+            TokenSlowar tokenezator = new TokenSlowar();
             Lexer lexer = new Lexer();
             Tokens.Text = "";
             Output.Text = "";
@@ -426,7 +406,7 @@ namespace AntiPOPA
                 if (lexer.Lexe(tks))
                 {
 
-                    Polskalizator polskalizator = new Polskalizator();
+                    PolskiyStrEditor polskalizator = new PolskiyStrEditor();
                     List<Token> polis = polskalizator.getpolsk(tks);
 
                     foreach (Token t in polis)
