@@ -7,3 +7,12 @@ D:\SPO\SPO\AntiPOPA\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.
 D:\SPO\SPO\AntiPOPA\WindowsFormsApplication1\obj\Debug\AntiPOPA.csproj.GenerateResource.Cache
 D:\SPO\SPO\AntiPOPA\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
 D:\SPO\SPO\AntiPOPA\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
+D:\SPO\SPO\AntiPOPA\AntiPOPA\bin\Debug\WindowsFormsApplication1.exe.config
+D:\SPO\SPO\AntiPOPA\AntiPOPA\obj\Debug\WindowsFormsApplication1.exe
+D:\SPO\SPO\AntiPOPA\AntiPOPA\obj\Debug\WindowsFormsApplication1.pdb
+D:\SPO\SPO\AntiPOPA\AntiPOPA\bin\Debug\WindowsFormsApplication1.exe
+D:\SPO\SPO\AntiPOPA\AntiPOPA\bin\Debug\WindowsFormsApplication1.pdb
+D:\SPO\SPO\AntiPOPA\AntiPOPA\obj\Debug\AntiPOPA.csprojResolveAssemblyReference.cache
+D:\SPO\SPO\AntiPOPA\AntiPOPA\obj\Debug\AntiPOPA.Laba4.resources
+D:\SPO\SPO\AntiPOPA\AntiPOPA\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+D:\SPO\SPO\AntiPOPA\AntiPOPA\obj\Debug\AntiPOPA.csproj.GenerateResource.Cache
