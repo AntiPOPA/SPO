@@ -31,7 +31,7 @@
             this.Letuchka = new System.Windows.Forms.Button();
             this.ProgrammText = new System.Windows.Forms.TextBox();
             this.Tokens = new System.Windows.Forms.TextBox();
-            this.PolskaVudkaDobrovudka = new System.Windows.Forms.TextBox();
+            this.VvodPolsk = new System.Windows.Forms.TextBox();
             this.Output = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
@@ -39,16 +39,16 @@
             // 
             this.Letuchka.Location = new System.Drawing.Point(21, 188);
             this.Letuchka.Name = "Letuchka";
-            this.Letuchka.Size = new System.Drawing.Size(75, 23);
+            this.Letuchka.Size = new System.Drawing.Size(150, 23);
             this.Letuchka.TabIndex = 0;
-            this.Letuchka.Text = "button1";
+            this.Letuchka.Text = "Nazhmi menya";
             this.Letuchka.UseVisualStyleBackColor = true;
             this.Letuchka.Click += new System.EventHandler(this.Letuchka_Click);
             // 
             // ProgrammText
             // 
             this.ProgrammText.Location = new System.Drawing.Point(21, 27);
-            this.ProgrammText.Name = "ProgrammText";
+            this.ProgrammText.Name = "uText";
             this.ProgrammText.Size = new System.Drawing.Size(225, 20);
             this.ProgrammText.TabIndex = 1;
             // 
@@ -61,10 +61,10 @@
             // 
             // PolskaVudkaDobrovudka
             // 
-            this.PolskaVudkaDobrovudka.Location = new System.Drawing.Point(21, 115);
-            this.PolskaVudkaDobrovudka.Name = "PolskaVudkaDobrovudka";
-            this.PolskaVudkaDobrovudka.Size = new System.Drawing.Size(225, 20);
-            this.PolskaVudkaDobrovudka.TabIndex = 3;
+            this.VvodPolsk.Location = new System.Drawing.Point(21, 115);
+            this.VvodPolsk.Name = "VvodPolsk";
+            this.VvodPolsk.Size = new System.Drawing.Size(225, 20);
+            this.VvodPolsk.TabIndex = 3;
             // 
             // Output
             // 
@@ -79,13 +79,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(298, 255);
             this.Controls.Add(this.Output);
-            this.Controls.Add(this.PolskaVudkaDobrovudka);
+            this.Controls.Add(this.VvodPolsk);
             this.Controls.Add(this.Tokens);
             this.Controls.Add(this.ProgrammText);
             this.Controls.Add(this.Letuchka);
             this.Name = "Laba4";
             this.Text = "Laba4";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.Laba4_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -96,7 +96,7 @@
         private System.Windows.Forms.Button Letuchka;
         private System.Windows.Forms.TextBox ProgrammText;
         private System.Windows.Forms.TextBox Tokens;
-        private System.Windows.Forms.TextBox PolskaVudkaDobrovudka;
+        private System.Windows.Forms.TextBox VvodPolsk;
         private System.Windows.Forms.TextBox Output;
     }
 }

@@ -260,11 +260,11 @@ namespace AntiPOPA
             }
         }
 
-        public struct VarHolder {                          //struct to intrepret tokens to VM
+        public struct DerPerem {                          //struct to intrepret tokens to VM
             public double znachenieimen;
             public string imya;
 
-           public VarHolder(string imya, double znachenieimen) {
+           public DerPerem(string imya, double znachenieimen) {
                 this.imya = imya;
                 this.znachenieimen = znachenieimen;
             }
@@ -272,11 +272,11 @@ namespace AntiPOPA
 
         public class Machine
         {
-            private Stack<VarHolder> stack = new Stack<VarHolder>();
-            private List<VarHolder> vars = new List<VarHolder>();
-            bool IsExist(string var)
+            private Stack<DerPerem> stack = new Stack<DerPerem>();
+            private List<DerPerem> perems = new List<DerPerem>();
+            bool UslVih(string var)
             {
-                foreach (VarHolder v in vars)
+                foreach (DerPerem v in perems)
                 {
                     if (v.imya == var) return true;
 
@@ -284,20 +284,20 @@ namespace AntiPOPA
                 return false;
             }
 
-            double GetVarHolderByName(string name)
+            double GetDerPeremByImya(string imya)
             {
-                foreach (VarHolder var in vars)
+                foreach (DerPerem var in perems)
                 {
-                    if (var.imya == name) return var.znachenieimen;
+                    if (var.imya == imya) return var.znachenieimen;
                 }
                 return 0f;
             }
 
             int GetVarHolderByNameIndex(string name)
             {
-                for (int i = 0; i < vars.Count; i++)
+                for (int i = 0; i < perems.Count; i++)
                 {
-                    if (vars[i].imya == name) return i;
+                    if (perems[i].imya == name) return i;
                 }
                 return -1;
             }
@@ -317,21 +317,21 @@ namespace AntiPOPA
                             break;
                         case "peremen":
                             {
-                                if (!IsExist(token.ZnachImeni))
+                                if (!UslVih(token.ZnachImeni))
                                 {
-                                    stack.Push(new VarHolder(token.ZnachImeni, 0f));
-                                    vars.Add(new VarHolder(token.ZnachImeni, 0f));
+                                    stack.Push(new DerPerem(token.ZnachImeni, 0f));
+                                    perems.Add(new DerPerem(token.ZnachImeni, 0f));
                                 }
                                 else
                                 {
-                                    stack.Push(new VarHolder(token.ZnachImeni, GetVarHolderByName(token.ZnachImeni)));
+                                    stack.Push(new DerPerem(token.ZnachImeni, GetDerPeremByImya(token.ZnachImeni)));
                                     
 
                                 }
                             }
                             break;
                         case "chisl":
-                            stack.Push(new VarHolder("", Convert.ToDouble(token.ZnachImeni)));
+                            stack.Push(new DerPerem("", Convert.ToDouble(token.ZnachImeni)));
                             break;
 
                         case "znakiAR":
@@ -340,19 +340,19 @@ namespace AntiPOPA
                                 double op2 = stack.Pop().znachenieimen;
                                 if (token.ZnachImeni == "+")
                                 {
-                                    stack.Push(new VarHolder("", (op1 + op2)));
+                                    stack.Push(new DerPerem("", (op1 + op2)));
                                 }
                                 else if (token.ZnachImeni == "-")
                                 {
-                                    stack.Push(new VarHolder("", (op2 - op1)));
+                                    stack.Push(new DerPerem("", (op2 - op1)));
                                 }
                                 else if (token.ZnachImeni == "*")
                                 {
-                                    stack.Push(new VarHolder("", (op1 * op2)));
+                                    stack.Push(new DerPerem("", (op1 * op2)));
                                 }
                                 else if (token.ZnachImeni == "/")
                                 {
-                                    stack.Push(new VarHolder("", (op1 / op2)));
+                                    stack.Push(new DerPerem("", (op1 / op2)));
                                 }
                             }
                             break;
@@ -361,7 +361,7 @@ namespace AntiPOPA
                                 double opb = stack.Pop().znachenieimen;
                                 string opa = stack.Pop().imya;
                                 int a = (GetVarHolderByNameIndex(opa));
-                                vars[a] = new VarHolder("", opb);
+                                perems[a] = new DerPerem("", opb);
                             }
                             break;
 
@@ -378,10 +378,9 @@ namespace AntiPOPA
         public Laba4()
         {
             InitializeComponent();
-           // playSimpleSound();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Laba4_Load(object sender, EventArgs e)
         {
             
         }      
@@ -394,7 +393,7 @@ namespace AntiPOPA
             Lexer lexer = new Lexer();
             Tokens.Text = "";
             Output.Text = "";
-            PolskaVudkaDobrovudka.Text = "";
+            VvodPolsk.Text = "";
             List <Token> tks = tokenezator.getTokens(ProgrammText.Text);
 
             foreach (Token t in tks){
@@ -406,20 +405,20 @@ namespace AntiPOPA
                 if (lexer.Lexe(tks))
                 {
 
-                    PolskiyStrEditor polskalizator = new PolskiyStrEditor();
-                    List<Token> polis = polskalizator.getpolsk(tks);
+                    PolskiyStrEditor polskstreditor = new PolskiyStrEditor();
+                    List<Token> polis = polskstreditor.getpolsk(tks);
 
                     foreach (Token t in polis)
                     {
-                        PolskaVudkaDobrovudka.Text += t.ZnachImeni + ", ";
+                        VvodPolsk.Text += t.ZnachImeni + ", ";
                     }
 
                     Machine machine = new Machine();
                     Output.Text = machine.vmachine(polis);
                 }
-                else Output.Text = "There is some trouble's whith UR sinthax. PLS check it";
+                else Output.Text = "U tebya trouble with syntax UR";
             }
-            else Output.Text = "U have not equal amount of brackets";
+            else Output.Text = "Prover scobki";
         }
     }
 }
