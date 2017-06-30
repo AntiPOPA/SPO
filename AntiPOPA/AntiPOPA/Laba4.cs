@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-//using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -210,16 +209,16 @@ namespace AntiPOPA
 
         }
 
-        public class PolskiyStrEditor {                                       //making polish string from the list of token's
+        public class PolskiyStrEditor {                                       
 
-            public int precedency(Token t) {                               //calculate priority for tokens
+            public int precedency(Token t) {                               
                 if (t.ZnachImeni == "/" || t.ZnachImeni == "*") return 10;
                 if (t.ZnachImeni == "+" || t.ZnachImeni == "-") return 9;
                 if (t.ZnachImeni == "="||t.ZnachImeni== "print") return 8;
                 else return 0;
             }
 
-            public List<Token> getpolsk (List<Token> notpolsk) {            //return polish string from non-polish string
+            public List<Token> getpolsk (List<Token> notpolsk) {           
                 bool toprint = false;
                 List<Token> alreadyPolsk = new List<Token>();
                 Stack<Token> stack = new Stack<Token>();
@@ -260,7 +259,7 @@ namespace AntiPOPA
             }
         }
 
-        public struct DerPerem {                          //struct to intrepret tokens to VM
+        public struct DerPerem {                          
             public double znachenieimen;
             public string imya;
 
